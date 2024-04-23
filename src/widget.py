@@ -7,7 +7,7 @@ def mask_card_or_count(name_and_num: str) -> str:
     """
     if "Счет" in name_and_num:
         num = "".join([num for num in name_and_num if num.isdigit()])
-        return "Счет" + mask_count(num)
+        return f"Счет {mask_count(num)}"
     else:
         num = "".join([num for num in name_and_num if num.isdigit()])
         alpha = "".join([word for word in name_and_num if word.isalpha() or word == " "]).strip()
@@ -20,4 +20,6 @@ def data_time(str_data: str) -> str:
     """
     list_str_data = str_data.split("T")
     new_data = list_str_data[0].split("-")
+    new_data = new_data[::-1]
     return ".".join(new_data)
+print(data_time("2018-07-11T02:26:18.671407"))
