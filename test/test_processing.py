@@ -1,5 +1,6 @@
 import pytest
-from src.processing import updated_list, list_sorting
+
+from src.processing import list_sorting, updated_list
 
 
 @pytest.fixture

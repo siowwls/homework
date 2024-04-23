@@ -1,5 +1,6 @@
 import pytest
-from src.widget import mask_card_or_count, data_time
+
+from src.widget import data_time, mask_card_or_count
 
 
 @pytest.mark.parametrize("s, expected_result", [("Maestro 1596837868705199", "Maestro 1596 83** **** 5199"),

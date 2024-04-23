@@ -1,5 +1,6 @@
 import pytest
-from src.masks import mask_number_card, mask_count
+
+from src.masks import mask_count, mask_number_card
 
 
 @pytest.fixture

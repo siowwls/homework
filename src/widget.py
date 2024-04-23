@@ -22,4 +22,6 @@ def data_time(str_data: str) -> str:
     new_data = list_str_data[0].split("-")
     new_data = new_data[::-1]
     return ".".join(new_data)
+
+
 print(data_time("2018-07-11T02:26:18.671407"))
