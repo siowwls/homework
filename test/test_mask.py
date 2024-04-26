@@ -9,6 +9,9 @@ def data() -> str:
 
 
 def test_mask_number_card(data: str) -> None:
+    """
+    Возвращает измененный номер карты
+    """
     assert mask_number_card(data) == "7000 79** **** 6361"
 
 
@@ -18,4 +21,7 @@ def data_2() -> str:
 
 
 def test_mask_count(data_2: str) -> None:
+    """
+    Возвращает замаскированный номер счета
+    """
     assert mask_count(data_2) == "**4305"
