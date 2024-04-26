@@ -1,6 +1,6 @@
 import pytest
 
-from src.widget import data_time, mask_card_or_count
+from src.widget import format_data_time, mask_card_or_count
 
 
 @pytest.mark.parametrize(
@@ -15,8 +15,8 @@ def test_mask_card_or_count(s: str, expected_result: str) -> None:
 
 
 @pytest.mark.parametrize("day, expected_result2", [("2018-07-11T02:26:18.671407", "11.07.2018")])
-def test_data_time(day: str, expected_result2: str) -> None:
+def test_format_data_time(day: str, expected_result2: str) -> None:
     """
     Возвращает день, месяц, год
     """
-    assert data_time(day) == expected_result2
+    assert format_data_time(day) == expected_result2

@@ -14,7 +14,7 @@ def mask_card_or_count(name_and_num: str) -> str:
         return alpha + " " + mask_number_card(num)
 
 
-def data_time(str_data: str) -> str:
+def format_data_time(str_data: str) -> str:
     """
     Функция возвращает день, месяц, год
     """
@@ -24,4 +24,4 @@ def data_time(str_data: str) -> str:
     return ".".join(new_data)
 
 
-print(data_time("2018-07-11T02:26:18.671407"))
+print(format_data_time("2018-07-11T02:26:18.671407"))
