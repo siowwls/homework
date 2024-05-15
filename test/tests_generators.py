@@ -1,3 +1,5 @@
+import pytest
+
 from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
 
 transactions = [
@@ -49,30 +51,66 @@ transactions = [
 ]
 
 
-def test_filter_by_currency() -> None:
+@pytest.mark.parametrize(
+    "transactions, code, expected_ids",
+    [
+        (transactions, "USD", [939719570, 142264268, 895315941]),
+        (transactions, "RUB", [873106923, 594226727]),
+    ],
+)
+def test_filter_by_currency(transactions: list, code: str, expected_ids: list) -> None:
     """
     Возвращает итератор,
     который выдает по очереди операции, в которых указана заданная валюта
-
     """
-    usd_transactions = filter_by_currency(transactions, "USD")
-    for transaction in usd_transactions:
-        assert transaction["operationAmount"]["currency"]["code"] == "USD"
+    usd_transactions = filter_by_currency(transactions, code)
+    ids = [t["id"] for t in usd_transactions]
+    assert ids == expected_ids
 
 
-def test_transaction_descriptions() -> None:
+@pytest.mark.parametrize(
+    "transactions, expected_descriptions",
+    [
+        (
+                transactions,
+                [
+                    "Перевод организации",
+                    "Перевод со счета на счет",
+                    "Перевод со счета на счет",
+                    "Перевод с карты на карту",
+                    "Перевод организации",
+                ],
+        ),
+    ],
+)
+def test_transaction_descriptions(transactions: list, expected_descriptions: list) -> None:
     """
     Возвращает описание каждой операции по очереди
     """
     descriptions = transaction_descriptions(transactions)
-    for transaction in transactions:
-        assert next(descriptions) == transaction["description"]
+    for expected_description in expected_descriptions:
+        assert next(descriptions) == expected_description
 
 
-def test_card_number_generator() -> None:
+@pytest.mark.parametrize(
+    "start, end, expected_output",
+    [
+        (
+                1,
+                5,
+                [
+                    "0000 0000 0000 0001",
+                    "0000 0000 0000 0002",
+                    "0000 0000 0000 0003",
+                    "0000 0000 0000 0004",
+                    "0000 0000 0000 0005",
+                ],
+        ),
+    ],
+)
+def test_card_number_generator(start: int, end: int, expected_output: str) -> None:
     """
     Генерирует номера карт в формате XXXX XXXX XXXX XXXX
     """
-    card_numbers = list(card_number_generator(1, 5))
-    assert card_numbers[0] == "0000 0000 0000 0001"
-    assert card_numbers[-1] == "0000 0000 0000 0005"
+    card_numbers = list(card_number_generator(start, end))
+    assert card_numbers == expected_output
