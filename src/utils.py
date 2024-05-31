@@ -8,15 +8,15 @@ load_dotenv()
 
 API_KEY = os.getenv('API_KEY')
 headers = {
-    'Authorization': API_KEY
+    'apikey': API_KEY
 }
 filename = '../data/operations.json'
 
 
 def transactions(filename: str) -> dict:
     try:
-        with open(filename, 'r') as f:
-            data = json.loads(filename)
+        with open(filename, 'r', encoding = 'utf-8') as f:
+            data = json.load(f)
         return data
     except FileNotFoundError:
         print(f"File {filename} not found.")
@@ -30,11 +30,11 @@ print(transactions(filename))
 
 
 def found_currency(currency: Any) -> Any:
-    responce = requests.get(f"https://api.apilayer.com/exchangerates_data/latest?symbols={currency}&base=RUB",
+    responce = requests.get(f"https://www.cbr-xml-daily.ru/daily_json.js",
                             headers=headers, timeout=20)
-    translate = json.loads(responce.text)["rates"]["RUB"]
+    translate = json.loads(responce.text)#["rates"]["RUB"]
     return translate
-
+print(found_currency("USD"))
 
 def sum_transactions(transactions: list) -> float:
     all = 0.0
@@ -48,7 +48,7 @@ def sum_transactions(transactions: list) -> float:
     return all
 
 
-transaction = {
+transactions = [{
     "id": 41428829,
     "state": "EXECUTED",
     "date": "2019-07-03T18:35:29.512364",
@@ -57,6 +57,6 @@ transaction = {
         "currency": {
             "name": "USD",
             "code": "RUB"
-        }}}
+        }}}]
 
-print(sum_transactions(transaction))
+print(sum_transactions(transactions))
