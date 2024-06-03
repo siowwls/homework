@@ -6,6 +6,7 @@ def log(filename: str | None) -> Callable:
     """
     Декоратор логирует вызов функции и ее результат в файл или в консоль
     """
+
     def decorator(function: Callable) -> Callable:
         @wraps(function)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
