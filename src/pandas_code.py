@@ -1,17 +1,17 @@
 import pandas as pd
 
 
-def open_csv(file: str) -> pd.DataFrame:
+def open_csv(file: str) -> list:
     """
-    Фунция читает файл-csv
+    Функция читает файл CSV и возвращает список словарей
     """
-    transactions = pd.read_csv(file)
-    return transactions
+    data = pd.read_csv(file)
+    return data.to_dict(orient='records')
 
 
-def open_excel(file: str) -> pd.DataFrame:
+def open_excel(file: str) -> list:
     """
-    Функция читает табличный файл
+    Функция читает файл Excel и возвращает список словарей
     """
     data = pd.read_excel(file)
-    return data
+    return data.to_dict(orient='records')
