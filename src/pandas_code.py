@@ -1,17 +1,18 @@
 import pandas as pd
+from typing import Any
 
 
-def open_csv(file: str) -> list:
+def open_csv(file: str) -> Any:
     """
     Функция читает файл CSV и возвращает список словарей
     """
     data = pd.read_csv(file)
-    return data.to_dict(orient='records')
+    return data.to_dict(orient="records")
 
 
-def open_excel(file: str) -> list:
+def open_excel(file: str) -> Any:
     """
     Функция читает файл Excel и возвращает список словарей
     """
     data = pd.read_excel(file)
-    return data.to_dict(orient='records')
+    return data.to_dict(orient="records")

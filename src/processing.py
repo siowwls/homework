@@ -1,9 +1,13 @@
-def filtered_dict(data: list[dict], keyword: str = "EXECUTED") -> list[dict]:
+from src.utils import open_transactions
+
+
+def filtered_dict(data: list, keyword: str = "EXECUTED") -> list:
     """
     функция принимает на вход список словарей и значение для ключа state и возвращает новый спсиок, содержащий
     только те словари, у которых ключ state содержит переданное в функцию значение
     """
-    return list(filter(lambda x: x["state"] == keyword, data))
+    new_list = [d for d in data if d.get("state") == keyword]
+    return new_list
 
 
 def sorted_list(data: list[dict], reversed_order: bool = True) -> list[dict]:
